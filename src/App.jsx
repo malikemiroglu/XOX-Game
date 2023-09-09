@@ -3,11 +3,15 @@ import './App.css'
 import circle from './assets/circle.png'
 import cross from './assets/cross.png'
 
+
 function App() {
   const [turn, setTurn] = useState('X')
   const [board, setBoard] = useState(Array(9).fill(''))
+  const [lock, setLock] = useState(false)
 
   const handleClick = (e,index) => {
+    if(lock) return;
+    
     if(turn === 'X' && board[index] === '') {
       e.target.innerHTML = `<img src=${cross} alt="cross" />`;
     }else {
@@ -21,9 +25,33 @@ function App() {
       alert('Bu alan dolu');
     }
     
+    checkWinner();
   }
 
+  const checkWinner = () => {
+    if(board[0] === board[1] && board[0] === board[2] && board[0] !== '') {
+      won(board[0])
+    }else if(board[3] === board[4] && board[3] === board[5] && board[3] !== '') {
+      won(board[3])
+    }else if(board[6] === board[7] && board[6] === board[8] && board[6] !== '') {
+      won(board[6])
+    }else if(board[0] === board[3] && board[0] === board[6] && board[0] !== '') {
+      won(board[0])
+    }else if(board[1] === board[4] && board[1] === board[7] && board[1] !== '') {
+      won(board[1])
+    }else if(board[2] === board[5] && board[2] === board[8] && board[2] !== '') {
+      won(board[2])
+    }else if(board[0] === board[4] && board[0] === board[8] && board[0] !== '') {
+      won(board[0])
+    }else if(board[2] === board[4] && board[2] === board[6] && board[2] !== '') {
+      won(board[2])
+    }
+  }
 
+  const won = (winner) => {
+    setLock(true);
+    alert(`${winner} Kazandı`);
+  }
 
 
   return (
