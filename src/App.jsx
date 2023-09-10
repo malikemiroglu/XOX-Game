@@ -53,6 +53,17 @@ function App() {
     alert(`${winner} Kazandı`);
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(''));
+    setTurn('X');
+    setLock(false);
+
+    const boxes = document.querySelectorAll('.boxes');
+    boxes.forEach(box => {
+      box.innerHTML = '';
+    })
+  }
+
 
   return (
     <>
@@ -81,7 +92,7 @@ function App() {
             
         </div>
 
-        <button className="reset">Tekrar Oyna</button>
+        <button className="reset" onClick={() => resetGame()}>Tekrar Oyna</button>
       </div>
 
     </>
