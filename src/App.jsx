@@ -28,6 +28,14 @@ function App() {
     }
     
     checkWinner();
+    checkDraw();
+  }
+
+  const checkDraw = () => {
+    if(!board.includes('')) {
+      setLock(true);
+      titleRef.current.innerHTML = 'Oyun Berabere Bitti';
+    }
   }
 
   const checkWinner = () => {
