@@ -26,42 +26,22 @@ function App() {
     } else {
       alert('Bu alan dolu');
     }
-
-    // if(board[index] === '') {
-    //   setBoard(board.map((item, i) => {
-    //     console.log("item:", item)
-    //     console.log("i:", i)
-    //     if(i === index) {
-    //       return turn;
-    //     }
-    //     return item;
-    //   }));
-    //   setTurn(turn === 'X' ? 'O' : 'X');
-    // }else {
-    //   alert('Bu alan dolu');
-    // }
     
     checkWinner();
   }
 
   const checkWinner = () => {
-    if(board[0] === board[1] && board[0] === board[2] && board[0] !== '') {
-      won(board[0])
-    }else if(board[3] === board[4] && board[3] === board[5] && board[3] !== '') {
-      won(board[3])
-    }else if(board[6] === board[7] && board[6] === board[8] && board[6] !== '') {
-      won(board[6])
-    }else if(board[0] === board[3] && board[0] === board[6] && board[0] !== '') {
-      won(board[0])
-    }else if(board[1] === board[4] && board[1] === board[7] && board[1] !== '') {
-      won(board[1])
-    }else if(board[2] === board[5] && board[2] === board[8] && board[2] !== '') {
-      won(board[2])
-    }else if(board[0] === board[4] && board[0] === board[8] && board[0] !== '') {
-      won(board[0])
-    }else if(board[2] === board[4] && board[2] === board[6] && board[2] !== '') {
-      won(board[2])
-    }
+    const winningConditions = [
+      [0,1,2], [3,4,5], [6,7,8], 
+      [0,3,6], [1,4,7], [2,5,8], 
+      [0,4,8], [2,4,6] 
+    ]
+
+    winningConditions.forEach(condition => {
+      if(board[condition[0]] === board[condition[1]] && board[condition[0]] === board[condition[2]] && board[condition[0]] !== '') {
+        won(board[condition[0]])
+      }
+    })
   }
 
   const won = (winner) => {
@@ -77,11 +57,9 @@ function App() {
     board.fill('');
     setTurn('X');
     setLock(false);
-
+    titleRef.current.innerHTML = 'XOX Oyunu <span>React</span>';
     const boxes = document.querySelectorAll('.boxes');
-    boxes.forEach(box => {
-      box.innerHTML = '';
-    })
+    boxes.forEach(box => box.innerHTML = '')
   }
 
 
