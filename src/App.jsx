@@ -1,29 +1,45 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import './App.css'
 import circle from './assets/circle.png'
 import cross from './assets/cross.png'
 
+const crossImg = `<img src=${cross} alt="cross" />`
+const circleImg = `<img src=${circle} alt="circle" />`
+const board = Array(9).fill('')
 
 function App() {
   const [turn, setTurn] = useState('X')
-  const [board, setBoard] = useState(Array(9).fill(''))
   const [lock, setLock] = useState(false)
+  const titleRef = useRef(null)
 
   const handleClick = (e,index) => {
     if(lock) return;
-    
-    if(turn === 'X' && board[index] === '') {
-      e.target.innerHTML = `<img src=${cross} alt="cross" />`;
-    }else {
-      e.target.innerHTML = `<img src=${circle} alt="circle" />`;
-    }
 
-    if(board[index] === '') {
-      setBoard(board.map((item, i) => i === index ? turn : item));
-      setTurn(turn === 'X' ? 'O' : 'X');
-    }else {
+    if(turn === 'X' && board[index] === '') {
+      e.target.innerHTML = crossImg;
+      board[index] = 'X';
+      setTurn('O');
+    }else if(turn === 'O' && board[index] === '') {
+      e.target.innerHTML = circleImg;
+      board[index] = 'O';
+      setTurn('X');
+    } else {
       alert('Bu alan dolu');
     }
+
+    // if(board[index] === '') {
+    //   setBoard(board.map((item, i) => {
+    //     console.log("item:", item)
+    //     console.log("i:", i)
+    //     if(i === index) {
+    //       return turn;
+    //     }
+    //     return item;
+    //   }));
+    //   setTurn(turn === 'X' ? 'O' : 'X');
+    // }else {
+    //   alert('Bu alan dolu');
+    // }
     
     checkWinner();
   }
@@ -50,11 +66,15 @@ function App() {
 
   const won = (winner) => {
     setLock(true);
-    alert(`${winner} Kazandı`);
+    if(winner === 'X') {
+      titleRef.current.innerHTML = `Tebrikler: ${crossImg} Kazandı`;
+    }else {
+      titleRef.current.innerHTML = `Tebrikler: ${circleImg} Kazandı`;
+    }
   }
 
   const resetGame = () => {
-    setBoard(Array(9).fill(''));
+    board.fill('');
     setTurn('X');
     setLock(false);
 
@@ -68,7 +88,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <h1 className='title'>XOX Oyunu <span>React</span></h1>
+        <h1 className='title' ref={titleRef}>XOX Oyunu <span>React</span></h1>
 
         <div className="board">
 
