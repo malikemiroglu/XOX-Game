@@ -5,10 +5,10 @@ import cross from './assets/cross.png'
 
 const crossImg = `<img src=${cross} alt="cross" />`
 const circleImg = `<img src=${circle} alt="circle" />`
-const board = Array(9).fill('')
 
 function App() {
   const [turn, setTurn] = useState('X')
+  const [board, setBoard] = useState(Array(9).fill('')) 
   const [lock, setLock] = useState(false)
   const titleRef = useRef(null)
 
@@ -54,7 +54,7 @@ function App() {
   }
 
   const resetGame = () => {
-    board.fill('');
+    setBoard(Array(9).fill(''));
     setTurn('X');
     setLock(false);
     titleRef.current.innerHTML = 'XOX Oyunu <span>React</span>';
