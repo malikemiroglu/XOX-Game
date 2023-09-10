@@ -8,12 +8,12 @@ React kullanılarak oluşturulmuş bir XOX oyunu. İki oyuncu arasında oynanan 
 
 1. Proje dosyalarını bilgisayarınıza klonlayın veya indirin.
 ```bash
- git clone <proje-repo-url>
+ git clone https://github.com/malikemiroglu/XOX-Game.git
 ```
 
 2. Proje klasörüne gidin.
 ```bash
-cd xox-oyunu-react
+cd XOX-Game
 ```
 
 
